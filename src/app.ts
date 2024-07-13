@@ -1,7 +1,5 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { authRoutes } from './app/modules/auth/auth.routes';
-import { userRoutes } from './app/modules/user/user.route';
 import router from './app/routes';
 
 

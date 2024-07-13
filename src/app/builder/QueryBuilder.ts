@@ -23,7 +23,7 @@ class QueryBuilder<T> {
     }
  filter(){
     const queryObj = { ...this.query };
-    const excludeFields = ['searchTerm', 'sort','fields'];
+    const excludeFields = ['searchTerm', 'sort','page'];
   excludeFields.forEach((el) => delete queryObj[el]);
 
   this.modelQuery = this.modelQuery.find(queryObj as FilterQuery<T>)
@@ -38,13 +38,15 @@ class QueryBuilder<T> {
 
     return this;
   }
+paginate(){
+  const page = Number(this?.query?.page) || 1;
+  const limit =  Number(this?.query?.page) || 10;
+  const skip= (page - 1)* limit;
+  this.modelQuery = this.modelQuery.skip(skip).limit(limit);
 
-fields(){
-   const fields = (this?.query?.fields as string)?.split(',')?.join(' ') || '-__v';
-   this.modelQuery = this.modelQuery.select(fields)
-
-   return this
+  return this
 }
+
 }
 
 
